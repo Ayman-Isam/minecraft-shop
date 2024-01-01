@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content='{% csrf_token %}'>
+    <title>{% block title %}My Website{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+        <link rel="stylesheet" href="{% static 'css/toast.css' %}">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <script src="https://kit.fontawesome.com/9812d4ff58.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        {% block styles %}{% endblock %}
+</head>
+<body class="light-mode">
+    <header class="header">
+        <a href="/" class="logo">Shop</a>
+
+        <nav class="navbar">
+            {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                    <a href="{% url 'item-create' %}">Add Item</a>
+                {% else %}
+                    <a href="{% url 'cart' %}">Cart</a>
+                    <a href="{% url 'wishlist' %}">Wishlist</a>
+                    <a href="{% url 'orders' %}">Orders</a>
+                {% endif %}
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </nav>
+
+        <div class="toggle-wrapper">
+            <input type="checkbox" class="dark-mode-toggle" id="dark-mode-toggle" hidden="true">
+            <label for="dark-mode-toggle" class="toggle">
+                <span class="toggle-handler">
+                    <span class="crater crater--1"></span>
+                    <span class="crater crater--2"></span>
+                    <span class="crater crater--3"></span>
+                </span>
+                <span class="star star--1"></span>
+                <span class="star star--2"></span>
+                <span class="star star--3"></span>
+                <span class="star star--4"></span>
+                <span class="star star--5"></span>
+                <span class="star star--6"></span>
+            </label>
+        </div>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/toast.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% block scripts %}{% endblock %}
+</html>

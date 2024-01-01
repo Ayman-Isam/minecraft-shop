@@ -1,0 +1,256 @@
+:root {
+    --primary-color: #59ad37;
+    --background-color: #fff;
+}
+
+.dark-mode {
+    --primary-color: #70d946;
+    --background-color: #202020;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 200px 20px 100px;
+    background: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 32px;
+    color: var(--background-color);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.navbar a {
+    position: relative;
+    font-size: 18px;
+    color: var(--background-color);
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 40px ;
+    z-index: 10;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.navbar a::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--background-color);
+    transition: 0.3s;
+}
+
+.navbar a:hover::before {
+    width: 100%;
+}
+
+.toggle-wrapper {
+    position: absolute;
+    top: 50%;
+    right: -25%;
+    overflow: hidden;
+    padding: 0 200px;
+    transform: translate3d(-50%, -50%, 0);
+    color: var(--background-color);
+}
+
+.toggle-wrapper .input {
+    position: absolute;
+    left: -99em;
+}
+
+.toggle {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    width: 90px;
+    height: 50px;
+    background-color: #83d8ff;
+    border-radius: 84px;
+    transition: background-color 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.toggle-handler {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    top: 3px;
+    left: 3px;
+    width: 44px;
+    height: 44px;
+    background-color: #ffcf96;
+    border-radius: 50px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: rotate(-45deg);
+}
+
+.toggle-handler .crater{
+    position: absolute;
+    background-color: #e8cda5;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    border-radius: 100%;
+}
+
+.toggle-handler .crater--1 {
+    top: 18px;
+    left: 10px;
+    width: 6px;
+    height: 6px;
+}
+
+.toggle-handler .crater--2 {
+    top: 28px;
+    left: 22px;
+    width: 6px;
+    height: 6px;
+}
+
+.toggle-handler .crater--3 {
+    top: 10px;
+    left: 25px;
+    width: 8px;
+    height: 8px;
+}
+
+.star {
+    position: absolute;
+    background-color: #fff;
+    transition: all 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    border-radius: 50%;
+}
+
+.star--1 {
+    top: 10px;
+    left: 35px;
+    z-index: 0;
+    width: 30px;
+    height: 3px;
+}
+
+.star--2 {
+    top: 18px;
+    left: 28px;
+    z-index: 1;
+    width: 30px;
+    height: 3px;
+}
+
+.star--3 {
+    top: 27px;
+    left: 40px;
+    z-index: 0;
+    width: 30px;
+    height: 3px;
+}
+
+.star--4, .star--5, .star--6 {
+    opacity: 0;
+    transition: all 0.3s 0 cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.star--4 {
+    top: 16px;
+    left: 11px;
+    z-index: 0;
+    width: 2px;
+    height: 2px;
+    transform: translate(3px, 0, 0);
+}
+
+.star--5 {
+    top: 32px;
+    left: 17px;
+    z-index: 0;
+    width: 3px;
+    height: 3px;
+    transform: translate(3px, 0, 0);
+}
+
+.star--6 {
+    top: 36px;
+    left: 28px;
+    z-index: 0;
+    width: 2px;
+    height: 2px;
+    transform: translate(3px, 0, 0);
+}
+
+input:checked + .toggle {
+    background-color: #749dd6;
+}
+
+input:checked + .toggle:before {
+    color: #749ed7;
+}
+
+input:checked + .toggle::after {
+    color: #749ed7;
+}
+
+input:checked + .toggle .toggle-handler {
+    background-color: #ffe5b5;
+    transform: translate3d(40px, 0, 0) rotate(0);
+}
+
+input:checked + .toggle .toggle-handler .crater {
+    opacity: 1;
+}
+
+input:checked + .toggle .star--1 {
+    width: 2px;
+    height: 2px;
+}
+
+input:checked + .toggle .star--2 {
+    width: 4px;
+    height: 4px;
+    transform: translate3d(-5px, 0, 0);
+}
+
+input:checked + .toggle .star--3 {
+    width: 2px;
+    height: 2px;
+    transform: translate3d(-7px, 0, 0);
+}
+
+input:checked + .toggle .star--4, input:checked + .toggle .star--5, input:checked + .toggle .star--6 {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+input:checked + .toggle .star--4 {
+    transition: all 0.3s 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+input:checked + .toggle .star--5 {
+    transition: all 0.3s 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+input:checked + .toggle .star--6 {
+    transition: all 0.3s 0.4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}

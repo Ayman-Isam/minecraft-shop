@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}New Item{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/item.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="form-section">
+        <header>
+            <h1>New Item</h1>
+        </header>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-field">
+                <label for="{{ form.name.id_for_label }}">Name:</label>
+                {{ form.name }}
+            </div>
+            <div class="form-field">
+                <label for="{{ form.image.id_for_label }}">Image:</label>
+                {{ form.image }}
+            </div>
+            <div class="form-field">
+                <label for="{{ form.price.id_for_label }}">Price:</label>
+                {{ form.price }}
+            </div>
+            <div class="form-field">
+                <label for="{{ form.description.id_for_label }}">Description:</label>
+                {{ form.description }}
+            </div>
+            <div class="form-field">
+                <label for="{{ form.quantity.id_for_label }}">Quantity:</label>
+                {{ form.quantity }}
+            </div>
+            <div class="form-field">
+                <label for="{{ form.unit.id_for_label }}">Unit:</label>
+                {{ form.unit }}
+            </div>
+            <div class="form-field">
+                <label for="{{ form.stock.id_for_label }}">Stock:</label>
+                {{ form.stock }}
+            </div>
+            <div class="form-field">
+                <label for="{{ form.category.id_for_label }}">Category:</label>
+                {{ form.category }}
+            </div>
+            <button type="submit" class="btn-primary">Save</button>
+        </form>
+    </section>
+{% endblock %}

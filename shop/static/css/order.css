@@ -1,0 +1,103 @@
+:root {
+    --background-color: #fff;
+    --container-background: #ebe9e9;
+    --header-background: #edecec;
+    --text-color: #666;
+    --text-color-bold: #333;
+    --border-color: #ccc;
+}
+
+.dark-mode {
+    --background-color: #202020;
+    --container-background: #333;
+    --header-background: #444;
+    --text-color: #ccc;
+    --text-color-bold: #fff;
+    --border-color: #666;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.5s ease, color 0.5s ease;
+    margin-top: 100px;
+}
+
+.order-container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--container-background);
+    border-radius: 5px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid var(--border-color);
+}
+
+.order-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--header-background);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    order: 2;
+}
+
+.order-header-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.order-header-label {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--text-color);
+}
+
+.order-header-value {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-color-bold);
+}
+
+.order-header-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-items {
+    width: 60%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-left: 50px;
+    order: 1;
+}
+
+.order-items th,
+.order-items td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color-bold);
+}
+
+.order-items th {
+    font-weight: bold;
+}
+
+.order-items img {
+    max-width: 80px;
+    height: auto;
+}
+
+.no-orders-message {
+    font-size: 18px;
+    margin-bottom: 20px;
+}

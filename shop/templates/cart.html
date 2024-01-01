@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Cart{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/cart.css'%}">
+{% endblock %}
+
+{% block content %}
+  {% if carts %}
+    <table class="cart">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Item</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cart in carts %}
+          <tr>
+            <td><img src="{{ cart.item.image.url }}" alt="{{ cart.item.name }}"></td>
+            <td>{{ cart.item.name }}</td>
+            <td>${{ cart.item.price }}</td>
+            <td>
+              <div class="quantity">
+                <form method="POST" action="{% url 'decrement_cart_item' cart.id %}">
+                  {% csrf_token %}
+                  <button class="minus-btn" type="submit"><i class="fa-solid fa-minus"></i></button>
+                </form>
+                <form id="updateForm" method="POST" action="{% url 'update_cart_item' cart.id %}">
+                  {% csrf_token %}
+                  <input id="quantityInput" type="number" name="quantity" value="{{ cart.quantity }}" data-id="{{ cart.id }}">
+                </form>
+                <form method="POST" action="{% url 'increment_cart_item' cart.id %}">
+                  {% csrf_token %}
+                  <button class="plus-btn" type="submit"><i class="fa-solid fa-plus"></i></button>
+                </form>
+              </div>
+            </td>
+            <td>${{ cart.get_total_item_price }}</td>
+            <td><a href="{% url 'remove_from_cart' cart.id %}"><i class="fa-solid fa-xmark"></i></a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <form class="cart-totals-form" method="post" action="{% url 'create_order' %}">
+      {% csrf_token %}
+      <div class="cart-totals">
+        <table class="cart-totals-table">
+          <tr>
+            <th>Subtotal</th>
+            <td><span id="cart-subtotal">{{ cart_subtotal }}</span></td>
+          </tr>
+          <tr>
+            <th>Address</th>
+            <td>
+              <div><input class="coords" type="number" id="x-coordinate" name="x-coordinate" placeholder="X" required></div>
+              <div><input class="coords" type="number" id="z-coordinate" name="z-coordinate" placeholder="Z" required></div>
+            </td>
+          </tr>
+          <tr>
+            <th>Shipping</th>
+            <td>
+              <div class="shipping-options">
+                <label for="shipping-option-1">
+                  <input type="radio" name="shipping-option" id="shipping-option-1" value="standard-shipping" required>
+                  <span>Standard - [3 day delivery]</span>
+                </label>
+                <label for="shipping-option-2">
+                  <input type="radio" name="shipping-option" id="shipping-option-2" value="express-shipping" required>
+                  <span>Express -  [1 day delivery]</span>
+                </label>
+              </div>
+              <div id="shipping-cost"></div>
+            </td>
+          </tr>
+          <tr>
+            <th>Total</th>
+            <td id="total-cost">{{ cart_total }}</td>
+            <input type="hidden" id="new-total-cost-input" name="new_total_cost">
+          </tr>
+          <tr>
+            <td colspan="2">
+              <button class="place-order-button" type="submit">Place Order</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </form>
+    <form class="redeem-form" method="post">
+      {% csrf_token %}
+      <input class="redeem-input" type="text" name="code" placeholder="Enter your code">
+      <button class="redeem-button" type="submit">Redeem</button>
+    </form>
+  {% else %}
+    <p>Your cart is empty.</p>
+  {% endif %}
+  <div class="balance-section">
+    <p>Your balance: ${{ request.user.profile.balance }}</p>
+  </div>
+  {% if messages %}
+  <div>
+    {% for message in messages %}
+    <div class="custom-toast {{ message.tags }}">
+      <button class="close-button">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="toast-body">
+        <i class="icon"></i> {{ message }}
+      </div>
+      <div class="toast-progress-bar"></div>
+    </div>
+    {% endfor %}  
+  </div>
+{% endif %}
+{% endblock %}

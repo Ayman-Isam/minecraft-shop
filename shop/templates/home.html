@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/items.css' %}">
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+{% endblock %} 
+
+{% block content %}
+    <div class="filter-sidebar">
+        <form method="get">
+            <h4>Product Categories</h4>
+            <ul>
+                <li>
+                    <input type="checkbox" id="armor-and-tools" name="category" value="armor and tools" {% if 'armor and tools' in categories %}checked{% endif %}>
+                    <label for="armor-and-tools"{% if 'armor and tools' in categories %} class="active"{% endif %}>Armor and Tools</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="potions" name="category" value="potions" {% if 'potions' in categories %}checked{% endif %}>
+                    <label for="potions"{% if 'potions' in categories %} class="active"{% endif %}>Potions</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="building-blocks" name="category" value="building blocks" {% if 'building blocks' in categories %}checked{% endif %}>
+                    <label for="building-blocks"{% if 'building blocks' in categories %} class="active"{% endif %}>Building Blocks</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="food-and-farming" name="category" value="food and farming" {% if 'food and farming' in categories %}checked{% endif %}>
+                    <label for="food-and-farming"{% if 'food and farming' in categories %} class="active"{% endif %}>Food and Farming</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="resources" name="category" value="resources" {% if 'resources' in categories %}checked{% endif %}>
+                    <label for="resources"{% if 'resources' in categories %} class="active"{% endif %}>Resources</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="utility" name="category" value="utility" {% if 'utility' in categories %}checked{% endif %}>
+                    <label for="utility"{% if 'utility' in categories %} class="active"{% endif %}>Utility</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="miscellaneous" name="category" value="miscellaneous" {% if 'miscellaneous' in categories %}checked{% endif %}>
+                    <label for="miscellaneous"{% if 'miscellaneous' in categories %} class="active"{% endif %}>Miscellaneous</label>
+                </li>
+            </ul>
+            <div class="wrapper">
+                <div class="text">
+                    <h2>Filter By Price</h2>
+                </div>
+                <div class="slider">
+                    <div class="progress"></div>
+                </div>
+                <div class="range-input">
+                    <input type="range" class="range-min" name="min_price" min="0" max="100" value="{{ request.GET.min_price|default:'0' }}">
+                    <input type="range" class="range-max" name="max_price" min="0" max="100" value="{{ request.GET.max_price|default:'100' }}">
+                </div>
+                <div class="price-input">
+                    <span>Price: </span>
+                    <div id="min-value">{{ request.GET.min_price|default:'0' }}</div>
+                    <span> - </span>
+                    <div id="max-value">{{ request.GET.max_price|default:'100' }}</div>
+                </div>
+            </div>
+            <h4>Product Stock:</h4>
+            <ul>
+                <li>
+                    <input type="checkbox" id="in-stock" name="stock" value="in stock" {% if 'in stock' in stocks %}checked{% endif %}>
+                    <label for="in-stock"{% if 'in stock' in stocks %} class="active"{% endif %}>In Stock</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="low-stock" name="stock" value="low stock" {% if 'low stock' in stocks %}checked{% endif %}>
+                    <label for="low-stock"{% if 'low stock' in stocks %} class="active"{% endif %}>Low Stock</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="out-of-stock" name="stock" value="out of stock" {% if 'out of stock' in stocks %}checked{% endif %}>
+                    <label for="out-of-stock"{% if 'out of stock' in stocks %} class="active"{% endif %}>Out of Stock</label>
+                </li>
+            </ul>
+            <button type="submit">Apply Filters</button>
+            <button type="button" onclick="location.href='{{ request.path }}'">Clear Filters</button>
+        </form>
+    </div>
+    <div class="container" id="grid">
+        {% for item in page_obj %}
+            <div class="item">
+                <a href="{% url 'item_detail' item.id %}" style="text-decoration: none;">
+                    <img class="center-image" src="{{ item.image.url }}" alt="{{ item.name }}">
+                    <p>{{ item.name }}</p>
+                    <div class="stock-info">
+                        {% if item.quantity is not None and item.unit %}
+                            <p class="item-quantity">{{ item.quantity }} {{ item.get_unit_display }}(s)</p>
+                        {% endif %}
+                        <p class="item-stock {% if item.stock == 'in stock' %}in-stock{% elif item.stock == 'out of stock' %}out-of-stock{% else %}low-stock{% endif %}">{{ item.get_stock_display }}</p>
+                    </div>
+                    <p class="item-price">{{ item.price }}</p>
+                    <form method="POST" action="{% url 'add_to_cart' item.id %}">
+                        {% csrf_token %}
+                        <div class="item-button">
+                            {% if item.stock != 'out of stock' %}
+                                <button type="submit">Add to Cart</button>
+                            {% else %}
+                                <button class="button-red" type="submit" disabled>Out of Stock</button>
+                            {% endif %}
+                        </div>
+                    </form>
+                    {% if user.is_authenticated %}
+                        {% if user.is_superuser %}
+                            <a href="{% url 'item-edit' item.pk %}"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a href="{% url 'item-delete' item.pk %}"><i class="fa-regular fa-trash-can"></i></a>
+                        {% else %}
+                            <a href="{% url 'add_to_wishlist' item.pk %}"><i class="fa-regular fa-heart"></i></a>
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </div>
+        {% empty %}
+            <p>No items available.</p>
+        {% endfor %}
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1"><i class="fa-solid fa-angles-left"></i></a> <!-- first page -->
+                <a href="?page={{ page_obj.previous_page_number }}"><i class="fa-solid fa-angle-left"></i></a> <!-- previous page -->
+            {% endif %}
+    
+            <!-- Show up to 3 page numbers before the current page -->
+            {% for i in page_obj.paginator.page_range %}
+                {% if page_obj.number > i and page_obj.number|add:"-4" < i %}
+                    <a href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+    
+            <!-- Show the current page number -->
+            <span class="current">
+                {{ page_obj.number }}
+            </span>
+    
+            <!-- Show up to 3 page numbers after the current page -->
+            {% for i in page_obj.paginator.page_range %}
+                {% if page_obj.number < i and page_obj.number|add:"4" > i %}
+                    <a href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}"><i class="fa-solid fa-angle-right"></i></a> <!-- next page -->
+                <a href="?page={{ page_obj.paginator.num_pages }}"><i class="fa-solid fa-angles-right"></i></a> <!-- last page -->
+            {% endif %}
+        </span>
+    </div>
+    {% if messages %}
+    <div>
+      {% for message in messages %}
+      <div class="custom-toast add-item-toast {{ message.tags }}">
+        <button class="close-button">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="toast-body">
+          <i class="icon"></i> {{ message|safe }}
+        </div>
+        <div class="toast-progress-bar"></div>
+      </div>
+      {% endfor %}  
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/slider.js' %}">
+</script>
+{% endblock %}
+

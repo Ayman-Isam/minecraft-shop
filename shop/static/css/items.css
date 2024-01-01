@@ -1,0 +1,269 @@
+:root {
+    --primary-color: #59ad37;
+    --background-color: #fff;
+    --text-color: #202020;
+    --text-color-hover: #d8d8d8;
+    --border-color: #d8d8d8;
+    --hover-color: #8497dd;
+    --stock-info: #696969;
+    --pagination-color: #38ccfd;
+}
+
+.dark-mode {
+    --primary-color: #70d946;
+    --background-color: #202020;
+    --text-color: #c1c1c1;
+    --text-color-hover: #424242;
+    --border-color: #3e3e3e;
+    --hover-color: #778bdb;
+    --stock-info: #9b9a9a;
+    --pagination-color: #3852fd;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: calc(100% - 35%);
+    margin: 8% 10% 0 25%;
+}
+
+/* Item Styles */
+.item {
+    width: 300px;    
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: 1.5px solid var(--border-color);
+    position: relative;
+    box-shadow: 0 0 1.5px var(--border-color);
+}
+
+/* Item Button Styles */
+.item-button {
+    text-align: center;
+}
+
+/* Item Border Radius Styles */
+.item.top-left {
+    border-top-left-radius: 10px;
+}
+
+.item.top-right {
+    border-top-right-radius: 10px;
+}
+
+.item.bottom-left {
+    border-bottom-left-radius: 10px;
+}
+
+.item.bottom-right {
+    border-bottom-right-radius: 10px;
+}
+
+/* Item Hover Styles */
+.item:hover {
+    border: 1.5px solid var(--hover-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+}
+
+/* Image Styles */
+.center-image {
+    display: block;
+    margin: 0 auto;
+    width: 192px;
+    height: 192px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.item:hover img {
+    transform: scale(1.1);
+}
+
+/* Button Styles */
+.item button {
+    background-color: #4CAF50;
+    color: var(--background-color);
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.item button:hover {
+    background-color: #3e8e41;
+}
+
+.item a {
+    color: var(--text-color);
+}
+
+.item a i:first-of-type {
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+    position: absolute;
+    top: 20px; 
+    right: 15px;
+    display: none; 
+}
+
+.item a:nth-of-type(2) i {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+    position: absolute;
+    top: 65px; 
+    right: 10px; 
+    display: none;
+}
+
+.item:hover a i:first-of-type,
+.item:hover a:nth-of-type(2) i {
+    display: block; 
+    transition: all 0.2s ease-in-out;
+}
+
+/* Item Quantity and Stock Styles */
+.item-quantity, .item-stock {
+    text-align: left;
+    margin-bottom: 0.5rem;
+    vertical-align: top;
+}
+
+/* Item Paragraph Styles */
+.item p:first-of-type {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+/* Item Price Styles */
+.item-price {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #b02c2c ;
+    display: flex;
+    align-items: center;
+}
+
+.item-price::before {
+    content: "$";
+    font-size: 1.25rem;
+    margin-right: 0.25rem;
+}
+
+/* Stock Info Styles */
+.in-stock {
+    color: green !important;
+}
+
+.out-of-stock {
+    color: #b02c2c !important;
+}
+
+.low-stock {
+    color: rgb(223, 196, 15) !important;
+}
+
+.stock-info {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.stock-info p:first-of-type{
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--stock-info);
+    margin-top: 0px;
+}
+
+/* Item Stock Styles */
+.item-stock {
+    text-align: left;
+    margin-bottom: 0.5rem;
+    vertical-align: top;
+    font-size: 0.625rem;
+    font-weight: 600;
+}
+
+.item-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+/* Form Field Styles */
+.form-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.form-field label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.form-field input,
+.form-field textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.step-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.step-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.step-links a:hover {
+    background-color: var(--text-color-hover);
+}
+
+.step-links .current {
+    border-radius: 50%;
+    width: 30px !important;
+    height: 30px !important;
+    background-color: var(--pagination-color);
+    color: var(--text-color);
+    text-align: center;
+    line-height: 30px;
+}

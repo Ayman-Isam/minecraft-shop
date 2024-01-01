@@ -1,0 +1,324 @@
+:root {
+    --background-color: #fff;
+    --text-color: #202020;
+    --border-color: #ccc;
+    --quantity-button: #f2f2f2;
+}
+
+.dark-mode {
+    --background-color: #202020;
+    --text-color: #c1c1c1;
+    --border-color: #7e7e7e;
+    --quantity-button: #313131;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 25px;
+    overflow-x: hidden;
+    background: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.cart {
+    width: 60%;
+    border-collapse: collapse;
+    margin-top: 120px;
+    margin-left: 100px;
+}
+
+.cart th,
+.cart td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cart .subtotal {
+    font-weight: bold;
+}
+
+.cart img {
+    max-width: 80px;
+    height: auto;
+}
+
+/* Quantity Styles */
+.quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity input {
+    width: 50px;
+    text-align: center;
+    border: none;
+    border-radius: 0;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.quantity input::-webkit-outer-spin-button,
+.quantity input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+} 
+
+.quantity button {
+    width: 25px;
+    height: 25px;
+    border: none;
+    background-color: var(--quantity-button);
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.quantity form input {
+    border-radius: 4px;
+    padding: 5px;
+    width: 50px;
+    text-align: center;
+    color: var(--text-color);
+    background-color: var(--quantity-button);
+}
+
+.quantity button:focus {
+    outline: none;
+}
+
+.minus-btn {
+    margin-right: 5px;
+    border-radius: 50%;
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.plus-btn {
+    margin-left: 5px;
+    border-radius: 50%;
+    width: 30px !important;
+    height: 30px !important;
+}
+
+/* Table Data Styles */
+td a i {
+    color: var(--text-color);
+    font-size: 1.5rem;
+}
+
+/* Cart Totals Styles */
+.cart-totals {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    margin-top: 120px;
+    margin-right: 80px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    width: 25%;
+    border-radius: 8px;
+    background-color: var(--background-color);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cart-totals-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cart-totals-table th,
+.cart-totals-table td {
+    padding: 10px;
+}
+
+.cart-totals-table th {
+    text-align: left;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--text-color);
+}
+
+.cart-totals-table td {
+    text-align: right;
+    font-size: 1.2em;
+    color: var(--text-color);
+}
+
+.cart-totals-table tr:not(:last-child) {
+    border-bottom: var(--border-color) 1px solid;
+}
+
+.cart-totals-table tr:last-child td {
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.cart-totals-table tr:nth-child(2) td div {
+    font-size: 0.8em;
+    color: var(--text-color);   
+    padding: 10px;
+}
+
+#shipping-cost {
+    font-size: 0.8em;
+    color: var(--text-color);
+}
+
+/* Shipping Options Styles */
+.shipping-options {
+    text-align: left;
+    font-size: 1.2em;
+}
+
+.shipping-options {
+    text-align: left;
+    font-size: small;
+}
+
+.shipping-options {
+    text-align: left;
+    font-size: small;
+}
+
+/* Shipping Options Styles */
+.shipping-options label {
+    display: flex;
+    align-items: center;
+}
+
+.shipping-options input[type="radio"] {
+    order: 2;
+    margin-left: 10px;
+}
+
+/* Cart Totals Table Styles */
+.cart-totals-table td span::before {
+    content: none;
+}
+
+/* Coordinate Styles */
+#x-coordinate,
+#z-coordinate {
+    display: inline-block;
+    width: 75%;
+    height: 40px;
+    padding: 10px;
+    margin-right: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+#x-coordinate::-webkit-inner-spin-button,
+#x-coordinate::-webkit-outer-spin-button,
+#z-coordinate::-webkit-inner-spin-button,
+#z-coordinate::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#x-coordinate::placeholder,
+#z-coordinate::placeholder {
+    color: var(--text-color);
+}
+
+/* Table Data Styles */
+table td span::before {
+    content: "$";
+    font-size: 1.25rem;
+    margin-right: 0.25rem;
+}
+
+/* Redeem Form Styles */
+.redeem-form {
+    position: absolute;
+    top: 600px;
+    right: 80px;
+}
+
+.redeem-input {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+    width: 200px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.redeem-input::placeholder {
+    color: var(--text-color);
+}
+
+.redeem-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.redeem-button:hover {
+    background-color: #0062cc;
+}
+
+/* Balance Section Styles */
+.balance-section {
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    top: 700px;
+    right: 100px;
+}
+
+.balance-section p {
+  font-size: 24px;
+}
+
+/* Place Order Form Styles */
+.place-order-form {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.place-order-button {
+  background-color: #3fbd5c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+}
+
+.place-order-button:hover {
+  background-color: #169b23;
+}
+
+/* Shipping Options Styles */
+.shipping-options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: bottom;
+}
