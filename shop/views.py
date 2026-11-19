@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, timedelta
 import uuid
 from decimal import Decimal, InvalidOperation
@@ -192,7 +193,7 @@ def error_page(request):
 
 def send_mail_after_register(email, token):
     subject = "Your account needs to be verified"
-    message = f"Hi, paste the link to verify your account http://cantankerousally.pythonanwhere.com/verify/{token}/"
+    message = f"Hi, paste the link to verify your account {os.environ.get('SERVER_URL')}/verify/{token}/"
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message, email_from, recipient_list)  
